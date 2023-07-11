@@ -105,7 +105,7 @@ void  AFIO_voidRemapPeriphralPins( u8 Copy_u8RemapingOptions)
             case AFIO_REMAP_ADC1_INJEC_MAP2    : SET_BIT(AFIO->MAPR,17); break;
             case AFIO_REMAP_ADC1_REGULAR_MAP1  : CLR_BIT(AFIO->MAPR,18); break;
             case AFIO_REMAP_ADC1_REGULAR_MAP2  : SET_BIT(AFIO->MAPR,18); break;
-			case AFIO_REMAP_ADC2_INJEC_MAP1    : CLR_BIT(AFIO->MAPR,19); break;
+	    case AFIO_REMAP_ADC2_INJEC_MAP1    : CLR_BIT(AFIO->MAPR,19); break;
             case AFIO_REMAP_ADC2_INJEC_MAP2    : SET_BIT(AFIO->MAPR,19); break;
             case AFIO_REMAP_ADC2_REGULAR_MAP1  : CLR_BIT(AFIO->MAPR,20); break;
             case AFIO_REMAP_ADC2_REGULAR_MAP2  : SET_BIT(AFIO->MAPR,20); break;
