@@ -23,7 +23,7 @@ code and link against the compiled library.
 >> When you are finished using the device drivers, be sure to disable any interrupts and
    resources that were enabled by the libraries.
 ```
-# Configuration
+## Configuration
 ```
 >> The libraries provide configuration options that allow you to customize the behavior of the
    device drivers. For example, you can configure the GPIO pins as input or output, or configure
@@ -32,7 +32,7 @@ code and link against the compiled library.
    appropriate configuration macros. Alternatively, you can define the macros directly in your code
    before including the relevant header files.
 ```
-# License
+## License
 ```
 These device driver libraries are released under the MIT License ↗. Feel free to use them in
 your own projects, modify them, and distribute them as needed. If you find any issues or have
