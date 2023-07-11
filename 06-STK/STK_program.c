@@ -12,6 +12,13 @@
 #include      "STK_private.h"
 #include      "STK_config.h"
 
+void STK_voidDeInit(void){
+	STK->CALIB = 0x0002328;
+    STK->CTRL = 0x00000000;
+    STK->LOAD = 0x00000000;
+    STK->VAL = 0x00000000;
+}
+
 void STK_voidInit(void)
 {
 	

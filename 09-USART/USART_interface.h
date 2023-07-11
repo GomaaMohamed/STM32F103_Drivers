@@ -9,7 +9,7 @@
 
 void USART_voidInit(void);
 void USART_voidTransmit(u8 Copy_u8DataToTransmit[]);
-u8   USART_u8Receive(void);
+u8   USART_u8Receive(u8 *ReceivedData);
 
 
 

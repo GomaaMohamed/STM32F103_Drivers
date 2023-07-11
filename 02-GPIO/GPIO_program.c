@@ -124,9 +124,9 @@ u8 Loc_u8Result = 0;
 }
 
 void GPIO_voidLockPinMode(u8 Copy_u8Port,u8 Copy_u8Pin)
-{
+{   u8 read = 0;
     switch(Copy_u8Port)
-	{   u8 read = 0;
+	{   
 		case GPIOA:
 		SET_BIT(GPIOA_LCKR,Copy_u8Pin);
 		SET_BIT(GPIOA_LCKR,16);

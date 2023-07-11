@@ -32,6 +32,11 @@ typedef struct {
 #define    USART_8BIT_DATA_SIZE  0
 #define    USART_9BIT_DATA_SIZE  1
 
+/* Baud Rate Configuration */
+#define   BR_9600    0
+#define   BR_4800    1
+#define   BR_115200  2
+
 
 
 #endif

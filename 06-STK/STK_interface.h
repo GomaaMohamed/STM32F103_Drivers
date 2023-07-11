@@ -1,7 +1,7 @@
 /*********************************************************************************/
-/* Author    : Gomaa Mohammed                                                      */
+/* Author    : Gomaa Mohammed                                                    */
 /* Version   : V01                                                               */
-/* Date      : 24 August 2020                                                     */
+/* Date      : 24 August 2020                                                    */
 /*********************************************************************************/
 
 #ifndef _STK_INTERFACE_H_
@@ -14,6 +14,7 @@
    Disable SysTick 
    
 */
+void STK_voidDeInit(void);
 void STK_voidInit(void);
 void STK_voidSetBusyWait(u32 Copy_u32Ticks);
 void STK_voidSetIntervalSingle(u32 Copy_u32Ticks,void (*Copy_ptr)(void));

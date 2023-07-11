@@ -8,7 +8,8 @@
 #include  "BIT_MATH.h"
 
 #include  "GPIO_interface.h"
-#include  "AFIO_interface.h"
+#include  "RCC_interface.h"
+
 
 #include  "USART_interface.h"
 #include  "USART_private.h"
@@ -16,17 +17,30 @@
 
 void USART_voidInit(void)
 {
+	/* Enable Clocks of GPIO  and USART */
+	RCC_voidEnableClock(RCC_APB2,RCC_IOPA);
+	RCC_voidEnableClock(RCC_APB2,RCC_USART);
+	/* Set Pin Directions of USART */
+	GPIO_voidSetPinDirection(GPIOA,GPIO_PIN9,GPIO_OUTPUT_2MHZ_AFPP);
+	GPIO_voidSetPinDirection(GPIOA,GPIO_PIN10,GPIO_INPUT_FLOATING);
+
+
 	/* Set Baud Rate */
-	/* 9600 BRR= */
-	USART->BRR = USART_BAUD_DIV;
-	
+	#if USART_BAUD_RATE == BR_9600
+	USART->BRR = 0x341;
+	#elif USART_BAUD_RATE == BR_4800
+	USART->BRR = 0x683;
+	#elif USART_BAUD_RATE == BR_115200
+	USART->BRR = 0x45;
+	#endif
+
 	/* Set Data Size */
 	#if     USART_DATA_SIZE  ==    USART_8BIT_DATA_SIZE
 	      CLR_BIT(USART->CR1,12);
 	#elif   USART_DATA_SIZE  ==    USART_9BIT_DATA_SIZE
 	      SET_BIT(USART->CR1,12);
 	#endif
-	
+
 	/* PARITY Enabled Or Disabled */
 	#if    USART_PARITY ==  USART_PARITY_ENABLED
 	     /* Enable Parity */
@@ -41,8 +55,8 @@ void USART_voidInit(void)
 	    /* Disable Parity */
 		CLR_BIT(USART->CR1,10);
 	#endif
-	 
-	
+
+
 	/*    Enable RX     */
 	/*    Enable TX     */
 	/*    Enable  USART */
@@ -54,33 +68,30 @@ void USART_voidInit(void)
 	
 	
 }
-void USART_voidTransmit(u8 Copy_u8DataToTransmit[])
+void USART_voidTransmit(u8 *Copy_u8DataToTransmit)
 {  u8 i = 0;
 	while(Copy_u8DataToTransmit[i] != '\0')
 	{
 		USART->DR = Copy_u8DataToTransmit[i];
 		while(GET_BIT(USART->SR,6) == 0);
 		i++;
+		CLR_BIT(USART->SR,6);
 	}
-	
 }
-u8   USART_u8Receive(void)
+u8   USART_u8Receive(u8 *ReceivedData)
 { 
-     u16 timeout = 0;
-	 Loc_u8ReceivedData = 0;
-	while( GET_BIT(USART->SR ,5) == 0)
-	{
-
-	 timeout++;
-	 if(timeout == 10000)
-	 {   Loc_u8ReceivedData = 255;
-		 break;
+	     volatile u8 Loc_u8 = 0;
+         //while(GET_BIT(USART->SR,5) == 0);
+         if(GET_BIT(USART->SR,5) == 1 ){
+			 *ReceivedData = USART->DR;
+			 CLR_BIT(USART->SR,5);
+			 Loc_u8 = 1;
 		 }
-	}
-	if(	Loc_u8ReceivedData == 0){
-	Loc_u8ReceivedData = USART->DR;
-	}
-	return(Loc_u8ReceivedData);
+		 else{
+			 // Do Nothing
+		 }
+	
+	return Loc_u8;
 }
 
 
