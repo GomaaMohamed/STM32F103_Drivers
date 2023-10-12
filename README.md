@@ -1,4 +1,4 @@
-# STM32F103-Drivers
+# STM32F103_Drivers
 ## Microcontroller Abstraction Layer (MCAL) for STM32F103
 ```
 This is a collection of device driver libraries for the STM32F103 microcontroller.
